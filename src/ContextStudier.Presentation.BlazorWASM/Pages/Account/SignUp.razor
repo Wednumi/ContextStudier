@@ -1,0 +1,40 @@
+﻿@page "/account/signup"
+@layout AccountLayout
+
+@inject HttpClient _client;
+
+<h2>Sign up</h2>
+<EditForm class="d-flex flex-column" Model="_registrationModel" OnValidSubmit="Register">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="mt-2">
+        <div>Email</div>
+        <InputText class="form-control" @bind-Value=_registrationModel.Email placeholder="Enter email" />
+    </div>
+    <div class="mt-2">
+        <div>Login</div>
+        <InputText class="form-control" @bind-Value=_registrationModel.UserName placeholder="Enter login" />
+    </div>
+    <div class="mt-2">
+        <div>Password</div>
+        <InputText type="password" class="form-control" @bind-Value=_registrationModel.Password placeholder="Enter password" />
+    </div>
+    <div class="mt-2">
+        <div>Confirm password</div>
+        <InputText type="password" class="form-control" @bind-Value=_registrationModel.PasswordConfirm placeholder="Confirm password" />
+    </div>
+    <InputItem class="m-0 mt-3" type="submit">Accept</InputItem>
+</EditForm>
+@_postResult
+
+@code {
+    private UserRegistrationModel _registrationModel = new();
+
+    private string _postResult = string.Empty;
+
+    private async Task Register()
+    {
+        var response = await _client.PostAsJsonAsync<UserRegistrationModel>("User", _registrationModel);
+        _postResult = await response.Content.ReadAsStringAsync();
+    }
+}
