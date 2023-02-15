@@ -4,12 +4,12 @@
 @inject HttpClient _client;
 
 <h2>Sign up</h2>
-<EditForm class="d-flex flex-column" Model="_registrationModel" OnValidSubmit="Register">
+<EditForm class="d-flex flex-column mb-2" Model="_registrationModel" OnValidSubmit="Register">
     <DataAnnotationsValidator />
     <ValidationSummary />
     <div class="mt-2">
         <div>Email</div>
-        <InputText class="form-control" @bind-Value=_registrationModel.Email placeholder="Enter email" />
+        <InputText type="email" class="form-control" @bind-Value=_registrationModel.Email placeholder="Enter email" />
     </div>
     <div class="mt-2">
         <div>Login</div>
@@ -21,7 +21,7 @@
     </div>
     <div class="mt-2">
         <div>Confirm password</div>
-        <InputText type="password" class="form-control" @bind-Value=_registrationModel.PasswordConfirm placeholder="Confirm password" />
+        <InputText type="password" class="form-control" @bind-Value=_registrationModel.ConfirmPassword placeholder="Confirm password" />
     </div>
     <InputItem class="m-0 mt-3" type="submit">Accept</InputItem>
 </EditForm>
@@ -34,7 +34,10 @@
 
     private async Task Register()
     {
+        _postResult = "...loading";
         var response = await _client.PostAsJsonAsync<UserRegistrationModel>("User", _registrationModel);
-        _postResult = await response.Content.ReadAsStringAsync();
+        _postResult = response.IsSuccessStatusCode
+            ? "Successfully registered"
+            : await response.Content.ReadAsStringAsync();
     }
 }

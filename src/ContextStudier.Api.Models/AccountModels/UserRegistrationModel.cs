@@ -1,7 +1,7 @@
 ﻿using ContextStudier.Api.Models.MapperConfig;
 using System.ComponentModel.DataAnnotations;
 
-namespace ContextStudier.Api.Models
+namespace ContextStudier.Api.Models.AccountModels
 {
     public class UserRegistrationModel
     {
@@ -21,9 +21,10 @@ namespace ContextStudier.Api.Models
 
         [NoMap]
         [Required]
+        [Display(Name = "Confirm password")]
         [MinLength(8, ErrorMessage = "Minimum password length is 8")]
         [DataType(DataType.Password)]
         [Compare("Password")]
-        public string PasswordConfirm { get; set; }
+        public string ConfirmPassword { get; set; }
     }
 }

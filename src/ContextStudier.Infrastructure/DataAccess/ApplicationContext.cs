@@ -5,15 +5,15 @@ using Microsoft.Extensions.Configuration;
 
 namespace ContextStudier.Infrastructure.DataAccess
 {
-    public class ApplicationContext : IdentityDbContext<User>
+    internal class ApplicationContext : IdentityDbContext<User>
     {
         private IConfiguration _config;
 
-        public DbSet<User> Users { get; set; }
+        internal DbSet<User> Users { get; set; }
 
-        public DbSet<Folder> Folders { get; set; }
+        internal DbSet<Folder> Folders { get; set; }
 
-        public DbSet<StudyPair> StudyPairs { get; set; }
+        internal DbSet<StudyPair> StudyPairs { get; set; }
 
         public ApplicationContext(IConfiguration config)
         {

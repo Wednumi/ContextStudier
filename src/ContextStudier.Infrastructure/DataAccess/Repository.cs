@@ -1,13 +1,13 @@
 ﻿using Ardalis.Specification.EntityFrameworkCore;
-using ContextStudier.Core.Entitites;
 using Microsoft.EntityFrameworkCore;
 using ContextStudier.Core.Interfaces.DataAccess;
+using ContextStudier.Core.Entitites;
 
 namespace ContextStudier.Infrastructure.DataAccess
 {
-    internal class Repository<T> : RepositoryBase<T>, IRepository<T> where T : BaseEntity
+    internal class Repository<T> : RepositoryBase<T>, IRepository<T> where T : class
     {
-        public Repository(DbContext dbContext)
+        internal Repository(DbContext dbContext)
             : base(dbContext)
         { }
     }

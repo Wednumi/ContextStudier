@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ContextStudier.Api.Models;
+using ContextStudier.Api.Models.AccountModels;
 using ContextStudier.Core.Entitites;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

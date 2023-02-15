@@ -1,9 +1,9 @@
 ﻿using ContextStudier.Core.Entitites;
 using ContextStudier.Core.Interfaces.DataAccess;
+using ContextStudier.Core.Interfaces.Security;
 using ContextStudier.Infrastructure.DataAccess;
+using ContextStudier.Infrastructure.Security;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ContextStudier.Infrastructure
@@ -28,6 +28,7 @@ namespace ContextStudier.Infrastructure
                 options.User.RequireUniqueEmail = true;
             })
                 .AddEntityFrameworkStores<ApplicationContext>();
+            services.AddSingleton<ISecurityKeySource, ConfigSecurityKeySource>();
         }
     }
 }

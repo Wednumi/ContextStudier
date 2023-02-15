@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ContextStudier.Api.Models;
+using ContextStudier.Api.Models.AccountModels;
 using ContextStudier.Core.Entitites;
 
 namespace ContextStudier.Api.MapperProfiles

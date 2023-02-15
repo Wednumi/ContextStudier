@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ContextStudier.Infrastructure.DataAccess
 {
-    public class RepositoryFactory : IRepositoryFactory
+    internal class RepositoryFactory : IRepositoryFactory
     {
         private readonly DbContext _dbContext;
 
@@ -13,7 +13,7 @@ namespace ContextStudier.Infrastructure.DataAccess
             _dbContext = dbContext;
         }
 
-        public IRepository<T> GetRepository<T>() where T : BaseEntity
+        public IRepository<T> GetRepository<T>() where T : class
         {
             return new Repository<T>(_dbContext);
         }
