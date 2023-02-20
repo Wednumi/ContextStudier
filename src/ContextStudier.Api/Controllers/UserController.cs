@@ -35,6 +35,5 @@ namespace ContextStudier.Api.Controllers
             }
             return BadRequest(result.Errors.FirstOrDefault()?.Description);
         }
-
     }
 }

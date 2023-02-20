@@ -9,13 +9,17 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="Blazored.LocalStorage" Version="4.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.14" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="7.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.10" PrivateAssets="all" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.26.1" />
     <PackageReference Include="WednumiComponents" Version="1.1.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ContextStudier.Api.Models\ContextStudier.Api.Models.csproj" />
+    <ProjectReference Include="..\ContextStudier.Api.Models\ContextStudier.Presentation.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

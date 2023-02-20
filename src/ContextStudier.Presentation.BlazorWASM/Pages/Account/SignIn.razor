@@ -1,19 +1,52 @@
 ﻿@page "/account/signin"
-
 @layout AccountLayout
 
+@using ContextStudier.Presentation.BlazorWASM.Security
+
+@inject NavigationManager _navigationManager
+@inject HttpClient _client;
+@inject AuthenticationService _authService
+
 <h2>Sign in</h2>
-@*<EditForm class="d-flex flex-column" Model="_userModel">
+<EditForm class="d-flex flex-column mb-2" Model="_credential" OnValidSubmit="Login">
     <DataAnnotationsValidator />
     <ValidationSummary />
     <div class="mt-2">
         <div>Login</div>
-        <InputText class="form-control" @bind-Value=_userModel.UserName placeholder="Enter login" />
+        <InputText class="form-control" @bind-Value=_credential.UserName placeholder="Enter login" />
     </div>
     <div class="mt-2">
         <div>Password</div>
-        <InputText type="password" class="form-control" @bind-Value=_userModel.Password placeholder="Enter password" />
+        <InputText type="password" class="form-control" @bind-Value=_credential.Password placeholder="Enter password" />
     </div>
     <InputItem class="m-0 mt-3" type="submit">Accept</InputItem>
-</EditForm>*@
+</EditForm>
+@_loginMessage
+
+@code{
+    private CredentialModel _credential = new CredentialModel();
+
+    private string _loginMessage = string.Empty;
+
+    private async Task Login()
+    {
+        _loginMessage = "...loading";
+
+        var loginResult = await _authService.LoginAsync(_credential);
+
+        if(loginResult.IsSuccess)
+        {
+            AfterLoginSuccess();
+        }
+        else
+        {
+            _loginMessage = loginResult.Message!;
+        }
+    }
+
+    private void AfterLoginSuccess()
+    {
+        _navigationManager.NavigateTo("/");
+    }
+}
 

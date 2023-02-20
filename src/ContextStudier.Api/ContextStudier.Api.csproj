@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ContextStudier.Api.Models\ContextStudier.Api.Models.csproj" />
+    <ProjectReference Include="..\ContextStudier.Api.Models\ContextStudier.Presentation.Core.csproj" />
     <ProjectReference Include="..\ContextStudier.Core\ContextStudier.Core.csproj" />
     <ProjectReference Include="..\ContextStudier.Infrastructure\ContextStudier.Infrastructure.csproj" />
   </ItemGroup>

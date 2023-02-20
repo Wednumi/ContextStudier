@@ -1,7 +1,17 @@
-﻿@layout AccountLayout
+﻿@using ContextStudier.Presentation.BlazorWASM.Security
 
-signuot
+@inject AuthenticationService _authService
+
+<div @onclick=LogoutAsync>
+    @ChildContent
+</div>
 
 @code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
 
+    private async Task LogoutAsync()
+    {
+        await _authService.LogoutAsync();
+    }
 }

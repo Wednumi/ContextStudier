@@ -2,6 +2,6 @@
 {
     public interface ISecurityKeySource
     {
-        public Task<byte[]> GetKeyBytes();
+        public byte[] GetKeyBytes();
     }
 }

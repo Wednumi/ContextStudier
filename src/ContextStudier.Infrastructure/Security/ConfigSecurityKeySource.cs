@@ -6,6 +6,8 @@ namespace ContextStudier.Infrastructure.Security
 {
     internal class ConfigSecurityKeySource : ISecurityKeySource
     {
+        private byte[]? _keyBytes = null;
+
         private readonly IConfiguration _config;
 
         public ConfigSecurityKeySource(IConfiguration config)
@@ -13,9 +15,14 @@ namespace ContextStudier.Infrastructure.Security
             _config = config;
         }
 
-        public async Task<byte[]> GetKeyBytes()
+        public byte[] GetKeyBytes()
         {
-            return Encoding.UTF8.GetBytes(_config["SecurityKey"]!);
+            if(_keyBytes is not null)
+            {
+                return _keyBytes;
+            }
+            _keyBytes = Encoding.UTF8.GetBytes(_config["SecurityKey"]!);
+            return _keyBytes;
         }
     }
 }
