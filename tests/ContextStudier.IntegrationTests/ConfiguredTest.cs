@@ -16,12 +16,12 @@ namespace ContextStudier.IntegrationTests
         public ConfiguredTest()
         {
             var serviceCollection = new ServiceCollection();
-            serviceCollection.AddInfrastructureServices();
             serviceCollection.AddCoreServices();
 
             string path = Path.GetFullPath(@"config.json");
             var config = new ConfigurationBuilder().AddJsonFile(path).Build();
             serviceCollection.AddTransient<IConfiguration>(provider => config);
+            serviceCollection.AddInfrastructureServices(config);
 
             var loggerMock = new Mock<ILogger<UserManager<User>>>();
             serviceCollection.AddTransient<ILogger<UserManager<User>>>(provider => loggerMock.Object);

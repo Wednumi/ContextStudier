@@ -1,6 +1,6 @@
 ﻿namespace ContextStudier.Core.Entitites
 {
-    public class StudyPair : BaseEntity
+    public class Card : BaseEntity
     {
         public string NativeText { get; private set; }
 
