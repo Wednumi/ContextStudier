@@ -2,6 +2,7 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #000A1B;
 }
 
 h1:focus {
@@ -65,7 +66,9 @@ a, .btn-link {
 
 .item {
     border-radius: 0.25rem;
-    --bg-color: #E0FF4F;
-    --hover-color: #D4F925;
+    --bg-color: #295CB0;
+    --hover-color: #195AC2;
+    color: white !important;
     border-width: 0;
+    margin: 0;
 }

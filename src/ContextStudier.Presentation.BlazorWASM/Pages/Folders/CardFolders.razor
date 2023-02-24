@@ -1,0 +1,37 @@
+﻿@using Newtonsoft.Json
+@using Newtonsoft.Json.Serialization
+
+@inject AuthenticationStateProvider _authProvider
+@inject HttpClient _client;
+
+<div class="folders-container">
+    <CreateFolderButton />
+   @if(_folders is not null){
+        @foreach (var folder in _folders)
+        {
+            <FolderBox Folder="folder" />
+        }
+   }
+</div>
+
+@code {
+    private List<FolderModel>? _folders;
+
+    protected async override Task OnInitializedAsync()
+    {
+        var authState = await _authProvider.GetAuthenticationStateAsync();
+        if(authState is null)
+        {
+            return;
+        }
+
+        var settings = new JsonSerializerSettings
+        {
+            ContractResolver = new PrivateSetterContractResolver()
+        };
+
+        var foldersJson = await _client.GetStringAsync("Folder");
+
+        _folders = JsonConvert.DeserializeObject<List<FolderModel>>(foldersJson, settings);
+    }
+}

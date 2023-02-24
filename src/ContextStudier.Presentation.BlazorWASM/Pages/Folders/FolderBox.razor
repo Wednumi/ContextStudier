@@ -1,0 +1,27 @@
+﻿@inject NavigationManager _navigationManager
+
+<div @onclick=MoveToFolderPage class="folder-box" style="background-color: @RandomColor()">
+    <div class="folder-name">@Folder.Name</div>
+    <div>@Folder.CardsCount cards</div>
+</div>
+
+@code {
+    private List<string> _colors = new List<string>()
+    {
+        "#E5D352", "#F49FBC", "#BBDEF0"
+    };
+
+    [Parameter]
+    public FolderModel Folder { get; set; }
+
+    private string RandomColor()
+    {
+        var i = new Random().Next(0, 2);
+        return _colors[i];
+    }
+
+    private void MoveToFolderPage()
+    {
+        _navigationManager.NavigateTo(Path.Combine("folder", Folder.Id.ToString()));
+    }
+}

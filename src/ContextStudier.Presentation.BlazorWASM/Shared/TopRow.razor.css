@@ -1,0 +1,13 @@
+﻿.authorized-items{
+    display: inline-flex;
+}
+
+    .authorized-items ::deep .item {
+        --bg-color: transparent;
+        --hover-color: transparent;
+        color: #DDDDDD !important;
+    }
+
+    .authorized-items ::deep .active-bg {
+        color: #E9E9E9 !important;
+    }

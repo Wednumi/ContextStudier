@@ -1,0 +1,14 @@
+﻿.folder-box {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    margin: 0 1rem 1rem 0;
+    cursor: pointer;
+    width: var(--folder-box-width);
+    height: var(--folder-box-height);
+    border-radius: var(--folder-box-radius);
+}
+
+.folder-name {
+    font-size: 1.5rem;
+}

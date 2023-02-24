@@ -11,7 +11,7 @@ using ContextStudier.Api.DIExtensions;
 var allowedOrigins = "_allowedOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddInfrastructureServices();
+builder.Services.AddInfrastructureServices(builder.Configuration);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

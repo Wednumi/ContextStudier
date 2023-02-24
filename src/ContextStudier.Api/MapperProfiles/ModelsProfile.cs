@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ContextStudier.Api.Models.AccountModels;
 using ContextStudier.Core.Entitites;
+using ContextStudier.Presentation.Core.EntitiesModels;
 
 namespace ContextStudier.Api.MapperProfiles
 {
@@ -9,6 +10,9 @@ namespace ContextStudier.Api.MapperProfiles
         public ModelsProfile()
         {
             CreateMap<UserRegistrationModel, User>();
+            CreateMap<FolderModel, Folder>();
+            CreateMap<Folder, FolderModel>()
+                .ForMember(dest => dest.CardsCount, opt => opt.MapFrom(src => src.Cards.Count));
         }
     }
 }

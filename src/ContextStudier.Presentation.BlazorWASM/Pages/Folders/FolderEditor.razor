@@ -1,0 +1,39 @@
+﻿@inject HttpClient _client
+
+<div class="overlay">
+    <div class="form-container">
+        <EditForm Model="Folder" OnValidSubmit="UpdateAsync">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="transparent-input">
+                <InputText @bind-Value=Folder.Name class="form-control fs-2 mb-3" />
+                <InputTextArea @bind-Value=Folder.Description class="form-control mb-2" 
+                    placeholder="Enter description" />
+            </div>            
+            <InputItem type="submit">Save</InputItem>
+        </EditForm>
+        @_result
+    </div>
+</div>
+
+@code {
+    private string _result = string.Empty;
+
+    [Parameter]
+    public FolderModel Folder { get; set; }
+
+    private async Task UpdateAsync()
+    {
+        var result = await _client.PostAsJsonAsync<FolderModel>("Folder", Folder);
+
+        if(result.IsSuccessStatusCode is false)
+        {
+            _result = "Error has occured";
+        }
+
+        else
+        {
+            _result = "ok";
+        }
+    }
+}
