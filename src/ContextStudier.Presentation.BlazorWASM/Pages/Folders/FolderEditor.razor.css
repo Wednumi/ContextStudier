@@ -9,6 +9,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1;
 }
 
 .form-container {
@@ -16,6 +17,7 @@
     border-radius: 0.5rem;
     width: 400px;
     padding: 1rem 1.5rem;
+    position: relative;
 }
 
 .transparent-input ::deep .form-control {
@@ -29,4 +31,19 @@
 
 ::deep textarea{
     height: 120px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.bi-check2-circle{
+    font-size: 1.7rem;
+    align-self: center;
+    margin-left: 0.5rem;
+    display: flex;
 }

@@ -1,39 +1,54 @@
 ﻿@inject HttpClient _client
 
-<div class="overlay">
+<div @onclick=ToggleVisibility>
+    @ShowButton
+</div>
+<div class="overlay @_visibilityCss">
     <div class="form-container">
         <EditForm Model="Folder" OnValidSubmit="UpdateAsync">
             <DataAnnotationsValidator />
             <ValidationSummary />
             <div class="transparent-input">
                 <InputText @bind-Value=Folder.Name class="form-control fs-2 mb-3" />
-                <InputTextArea @bind-Value=Folder.Description class="form-control mb-2" 
+                <InputTextArea @bind-Value=Folder.Description class="form-control mb-3" 
                     placeholder="Enter description" />
             </div>            
-            <InputItem type="submit">Save</InputItem>
+            <div class="d-inline-flex">
+                <InputItem type="submit">Save</InputItem>
+                @if (_success is not null && _success is true)
+                {
+                    <i class="bi bi-check2-circle"></i>
+                }
+            </div>
         </EditForm>
-        @_result
-    </div>
+        <i class="bi bi-x-circle-fill close-btn" @onclick=ToggleVisibility></i>
+    </div>    
 </div>
 
 @code {
-    private string _result = string.Empty;
+    private string _visibilityCss = "invisible";
+
+    private bool? _success;
 
     [Parameter]
     public FolderModel Folder { get; set; }
+
+    [Parameter]
+    public RenderFragment ShowButton { get; set; }
 
     private async Task UpdateAsync()
     {
         var result = await _client.PostAsJsonAsync<FolderModel>("Folder", Folder);
 
-        if(result.IsSuccessStatusCode is false)
-        {
-            _result = "Error has occured";
-        }
+        _success = result.IsSuccessStatusCode;
 
-        else
-        {
-            _result = "ok";
-        }
+        StateHasChanged();
+    }
+
+    private void ToggleVisibility()
+    {
+        _visibilityCss = _visibilityCss == "invisible"
+            ? "visible"
+            : "invisible";
     }
 }

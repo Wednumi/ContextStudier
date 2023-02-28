@@ -3,7 +3,6 @@ using ContextStudier.Core.Specifications.Folders;
 using ContextStudier.Core.Interfaces.DataAccess;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 using ContextStudier.Presentation.Core.EntitiesModels;
 using AutoMapper;
 
@@ -33,18 +32,47 @@ namespace ContextStudier.Api.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Create(FolderModel folderModel)
+        public async Task<IActionResult> Update(FolderModel folderModel)
         {
             if(ModelState.IsValid is false)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
             var folder = new Folder(this.GetUserId());
             _mapper.Map(folderModel, folder);
 
-            await _repository.UpdateAsync(folder);
-            return Ok();
+            if(await CanUpdate(folder))
+            {
+                try
+                {
+                    await _repository.UpdateAsync(folder);
+                    return Ok();
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest();
+                }
+                
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        private async Task<bool> CanUpdate(Folder folder)
+        {
+            if(folder.Id == default)
+            {
+                return true;
+            }
+
+            var storedFolder = await _repository.GetByIdAsync(folder.Id);
+            var userId = this.GetUserId();
+
+            return storedFolder is not null &&
+                storedFolder.UserId == userId;
         }
     }
 }

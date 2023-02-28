@@ -5,7 +5,7 @@ namespace ContextStudier.Presentation.Core.EntitiesModels
 {
     public class FolderModel
     {
-        public int Id { get; private set; }
+        public int Id { get; set; }
 
         [Required]
         public string Name { get; set; } = "New Folder";

@@ -1,8 +1,18 @@
 ﻿@inject NavigationManager _navigationManager
 
-<div @onclick=MoveToFolderPage class="folder-box" style="background-color: @RandomColor()">
-    <div class="folder-name">@Folder.Name</div>
-    <div>@Folder.CardsCount cards</div>
+<div class="folder-box" style="background-color: @RandomColor()">
+    <div @onclick=MoveToFolderPage class="folder-name">
+        @Folder.Name
+    </div>
+    <div>
+        @Folder.CardsCount cards
+    </div>
+
+    <FolderEditor Folder=Folder>
+        <ShowButton>
+            <i class="bi bi-pencil-square edit-btn"></i>
+        </ShowButton>
+    </FolderEditor>
 </div>
 
 @code {
