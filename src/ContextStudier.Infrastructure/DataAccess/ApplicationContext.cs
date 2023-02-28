@@ -17,5 +17,10 @@ namespace ContextStudier.Infrastructure.DataAccess
             :base(options)
         {
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+        }
     }
 }
