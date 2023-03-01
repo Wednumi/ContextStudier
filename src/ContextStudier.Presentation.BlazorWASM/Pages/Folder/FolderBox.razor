@@ -1,0 +1,38 @@
+﻿@inject NavigationManager _navigationManager
+
+<div class="folder-box" style="background-color: @BoxColor()">
+
+    <div @onclick=MoveToFolderPage class="folder-name">
+        @Folder.Name
+    </div>
+    <div>
+        @Folder.CardsCount cards
+    </div>
+
+    <FolderEditor Folder=Folder>
+        <ToggleElement>
+            <i class="bi bi-pencil-square edit-btn"></i>
+        </ToggleElement>
+    </FolderEditor>
+</div>
+
+@code {
+    private List<string> _colors = new List<string>()
+    {
+        "#E5D352", "#F49FBC", "#BBDEF0"
+    };
+
+    [Parameter]
+    public FolderModel Folder { get; set; }
+
+    private string BoxColor()
+    {
+        var i = Folder.Id % 3;
+        return _colors[i];
+    }
+
+    private void MoveToFolderPage()
+    {
+        _navigationManager.NavigateTo(Path.Combine("folder", Folder.Id.ToString()));
+    }
+}

@@ -1,13 +1,13 @@
 ﻿@page "/"
+@using ContextStudier.Presentation.BlazorWASM.Pages.Folder
 
-@inject AuthenticationStateProvider StateProvider
+<PageTitle>Cards</PageTitle>
 
-<PageTitle>Index</PageTitle>
-
-<div class="d-flex flex-column justify-content-center align-items-center w-100 mt-4 mt-lg-5">
-    <h1>Welcome to Context studier</h1>
-    <div class="d-inline-flex">
-        <NavItem href="account/signin">Sign in</NavItem>
-        <NavItem href="account/signup">Sign up</NavItem>
-    </div>
-</div>
+<AuthorizeView>
+    <Authorized>
+        <FolderList />
+    </Authorized>
+    <NotAuthorized>
+        not authorized
+    </NotAuthorized>
+</AuthorizeView>

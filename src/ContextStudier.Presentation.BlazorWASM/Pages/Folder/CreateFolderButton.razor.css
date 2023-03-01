@@ -1,0 +1,14 @@
+﻿.folder-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: var(--folder-box-width);
+    height: var(--folder-box-height);
+    border-radius: var(--folder-box-radius) var(--folder-box-radius);
+    border: 0.25rem solid yellowgreen;
+    color: yellowgreen;
+    margin: 0 1rem 1rem 0;
+    cursor: pointer;
+    font-size: 1.25rem;
+}

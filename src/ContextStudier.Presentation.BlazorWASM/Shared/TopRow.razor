@@ -1,0 +1,16 @@
+﻿@using ContextStudier.Presentation.BlazorWASM.Pages.Account
+
+<div class="flex-grow-1 justify-content-center d-inline-flex p-2">
+    <AuthorizeView>           
+        <Authorized>
+            <div class="authorized-items">
+                <NavItem>CARDS</NavItem>
+                <NavItem>SETTINGS</NavItem>
+            </div>
+        </Authorized>
+        <NotAuthorized>
+            <NavItem href="account/signin">Sign in</NavItem>
+            <NavItem href="account/signup">Sign up</NavItem>
+        </NotAuthorized>
+    </AuthorizeView>       
+</div>

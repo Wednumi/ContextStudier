@@ -1,0 +1,12 @@
+﻿.folders-container {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -1rem;
+}
+
+::deep {
+    --folder-box-width: 175px;
+    --folder-box-height: 125px;
+    --folder-box-radius: 0.5rem;
+}

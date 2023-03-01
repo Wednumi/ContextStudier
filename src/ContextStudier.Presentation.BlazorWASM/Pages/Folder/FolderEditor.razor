@@ -1,0 +1,91 @@
+﻿@using AutoMapper;
+@using Newtonsoft.Json
+@using Newtonsoft.Json.Serialization
+@using ContextStudier.Presentation.Core.Extensions
+
+@inject HttpClient _client
+@inject IMapper _mapper 
+
+<div @onclick=ToggleVisibility>
+    @ToggleElement
+</div>
+
+<div class="overlay @_visibilityCss">
+    <div class="form-container mx-3">
+        <EditForm Model="Folder" OnValidSubmit="UpdateAsync">
+
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="transparent-input">
+                <InputText @bind-Value=Folder.Name class="form-control fs-2 mb-3" />
+                <InputTextArea @bind-Value=Folder.Description class="form-control mb-3" 
+                    placeholder="Enter description" />
+            </div> 
+            
+            <div class="submit-area">
+                <InputItem type="submit" class="me-2">Save</InputItem>
+                @if (_success is not null && _success is true)
+                {
+                    <i class="bi bi-check"></i>
+                }
+                else if(_success is false)
+                {
+                    <span>Error has occured</span>
+                }
+            </div>
+
+        </EditForm>
+
+        <i class="bi bi-x-circle-fill close-btn" @onclick=ToggleVisibility></i>
+    </div>    
+</div>
+
+@code {
+    private string _visibilityCss = "invisible";
+
+    private bool? _success;
+
+    [Parameter]
+    public FolderModel Folder { get; set; }
+
+    [Parameter]
+    public RenderFragment ToggleElement { get; set; }
+
+    [CascadingParameter(Name = "UpdateSet")]
+    public Action<FolderModel>? UpdateSet { get; set; }
+
+    private async Task UpdateAsync()
+    {
+        var result = await _client.PostAsJsonAsync<FolderModel>("Folder", Folder);
+        _success = result.IsSuccessStatusCode;
+        await UpdateModelAsync(result.Content);
+
+        if (UpdateSet is not null)
+        {
+            UpdateSet(Folder);
+        }                
+    }
+
+    private async Task UpdateModelAsync(HttpContent httpContent)
+    {
+        var settings = new JsonSerializerSettings
+        {
+            ContractResolver = new PrivateSetterContractResolver()
+        };
+        var updated = await httpContent.ReadFromJsonAsync<FolderModel>(settings);
+
+        if (updated is null)
+        {
+            return;
+        }
+        _mapper.Map(updated, Folder);
+    }
+
+    private void ToggleVisibility()
+    {
+        _visibilityCss = _visibilityCss == "invisible"
+            ? "visible"
+            : "invisible";
+    }
+}

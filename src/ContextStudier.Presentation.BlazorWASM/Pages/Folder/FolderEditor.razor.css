@@ -1,0 +1,52 @@
+﻿.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.form-container {
+    background-color: #1BE7FF;
+    border-radius: 0.5rem;
+    width: 400px;
+    padding: 1rem 1.5rem;
+    position: relative;
+}
+
+.transparent-input ::deep .form-control {
+    background-color: transparent;
+    border: none;
+}
+
+::deep form {
+    margin: 0;
+}
+
+::deep textarea{
+    height: 120px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.submit-area{
+    display: inline-flex;
+}
+
+    .submit-area i {
+        font-size: 1.7rem;
+        align-self: center;
+        display: flex;
+    }

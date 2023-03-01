@@ -1,0 +1,24 @@
+﻿.folder-box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    margin: 0 1rem 1rem 0;
+    width: var(--folder-box-width);
+    height: var(--folder-box-height);
+    border-radius: var(--folder-box-radius);
+}
+
+.folder-name {
+    font-size: 1.5rem;
+    cursor: pointer;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.edit-btn{
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    cursor: pointer;
+}

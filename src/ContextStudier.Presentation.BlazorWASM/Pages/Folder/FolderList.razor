@@ -1,0 +1,42 @@
+﻿@using Newtonsoft.Json
+@using Newtonsoft.Json.Serialization
+@using ContextStudier.Presentation.Core.Extensions
+
+@inject HttpClient _client;
+
+<CascadingValue Name="UpdateSet" Value="UpdateSet">
+
+    <div class="folders-container">
+       
+       <CreateFolderButton />
+
+       @if(_folders is not null){
+            @foreach (var folder in _folders)
+            {
+                <FolderBox Folder="folder" />
+            }
+       }
+
+    </div>
+</CascadingValue>
+
+@code {
+    private HashSet<FolderModel> _folders;
+
+    protected async override Task OnInitializedAsync()
+    {
+        var settings = new JsonSerializerSettings
+        {
+            ContractResolver = new PrivateSetterContractResolver()
+        };
+
+        _folders = await _client.GetFromJsonAsync<HashSet<FolderModel>>("Folder", settings)
+            ?? new HashSet<FolderModel>();            
+    }
+
+    private void UpdateSet(FolderModel folder)
+    {
+        var c = _folders.Add(folder);
+        StateHasChanged();
+    }
+}
