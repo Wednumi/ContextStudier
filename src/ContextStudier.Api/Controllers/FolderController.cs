@@ -44,16 +44,9 @@ namespace ContextStudier.Api.Controllers
 
             if(await CanUpdate(folder))
             {
-                try
-                {
-                    await _repository.UpdateAsync(folder);
-                    return Ok();
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest();
-                }
-                
+                await _repository.UpdateAsync(folder);
+                var updatedModel = _mapper.Map<FolderModel>(folder);
+                return Ok(updatedModel);                
             }
             else
             {

@@ -1,11 +1,6 @@
 using ContextStudier.Core;
 using ContextStudier.Infrastructure;
 using System.Reflection;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.OpenApi.Models;
-using ContextStudier.Core.Interfaces.Security;
 using ContextStudier.Api.DIExtensions;
 
 var allowedOrigins = "_allowedOrigins";

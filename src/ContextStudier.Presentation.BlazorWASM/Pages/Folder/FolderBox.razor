@@ -1,6 +1,7 @@
 ﻿@inject NavigationManager _navigationManager
 
-<div class="folder-box" style="background-color: @RandomColor()">
+<div class="folder-box" style="background-color: @BoxColor()">
+
     <div @onclick=MoveToFolderPage class="folder-name">
         @Folder.Name
     </div>
@@ -9,9 +10,9 @@
     </div>
 
     <FolderEditor Folder=Folder>
-        <ShowButton>
+        <ToggleElement>
             <i class="bi bi-pencil-square edit-btn"></i>
-        </ShowButton>
+        </ToggleElement>
     </FolderEditor>
 </div>
 
@@ -24,9 +25,9 @@
     [Parameter]
     public FolderModel Folder { get; set; }
 
-    private string RandomColor()
+    private string BoxColor()
     {
-        var i = new Random().Next(0, 2);
+        var i = Folder.Id % 3;
         return _colors[i];
     }
 

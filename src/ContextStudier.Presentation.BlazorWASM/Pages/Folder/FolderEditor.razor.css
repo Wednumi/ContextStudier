@@ -41,9 +41,12 @@
     cursor: pointer;
 }
 
-.bi-check2-circle{
-    font-size: 1.7rem;
-    align-self: center;
-    margin-left: 0.5rem;
-    display: flex;
+.submit-area{
+    display: inline-flex;
 }
+
+    .submit-area i {
+        font-size: 1.7rem;
+        align-self: center;
+        display: flex;
+    }
