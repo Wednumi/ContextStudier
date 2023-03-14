@@ -6,6 +6,7 @@ using Moq;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity;
 using ContextStudier.Core.Entitites;
+using ContextStudier.Infrastructure.DataAccess;
 
 namespace ContextStudier.IntegrationTests
 {
@@ -21,12 +22,19 @@ namespace ContextStudier.IntegrationTests
             string path = Path.GetFullPath(@"config.json");
             var config = new ConfigurationBuilder().AddJsonFile(path).Build();
             serviceCollection.AddTransient<IConfiguration>(provider => config);
+
             serviceCollection.AddInfrastructureServices(config);
 
-            var loggerMock = new Mock<ILogger<UserManager<User>>>();
-            serviceCollection.AddTransient<ILogger<UserManager<User>>>(provider => loggerMock.Object);
-
             _serviceProvider = serviceCollection.BuildServiceProvider();
+
+            ResetDatabase();
+        }
+
+        private void ResetDatabase()
+        {
+            var context = GetService<ApplicationContext>();
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
         }
 
         protected T GetService<T>() where T : class
