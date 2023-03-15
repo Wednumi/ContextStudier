@@ -65,7 +65,7 @@ namespace ContextStudier.UnitTests
                 .ReturnsAsync((Folder)null);
 
             // Act & Assert
-            await Assert.ThrowsAsync<EntityWasNotStoredException>(() 
+            await Assert.ThrowsAsync<EntityNotFoundException>(() 
                 => _sut.UpdateAsync(folderNewStateMock.Object));
             _repositoryMock.Verify(x => x.UpdateAsync(It.IsAny<Folder>(), default), Times.Never);
         }

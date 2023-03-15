@@ -34,14 +34,20 @@ namespace ContextStudier.Core.Services
                 return folder;
             }
 
-            var storedFolder = await _repository.GetByIdAsync(folder.Id, cancellationToken);
+            return await GetFolderAsync(folder.Id, folder.UserId, cancellationToken);
+        }
 
-            if(storedFolder is null)
+        public async Task<Folder> GetFolderAsync(int folderId, string userId,
+            CancellationToken cancellationToken = default)
+        {
+            var storedFolder = await _repository.GetByIdAsync(folderId, cancellationToken);
+
+            if (storedFolder is null)
             {
-                throw new EntityWasNotStoredException();
+                throw new EntityNotFoundException();
             }
 
-            if(folder.UserId != storedFolder.UserId)
+            if (userId != storedFolder.UserId)
             {
                 throw new NotAllowedForRequesterException();
             }

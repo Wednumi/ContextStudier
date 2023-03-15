@@ -3,11 +3,13 @@
 @inject HttpClient _client
 
 @code {
+    private FolderInfo _folder;
+
     [Parameter]
     public int FolderId { get; set; }
 
     protected async override Task OnInitializedAsync()
     {
-        
+       
     }
 }

@@ -1,8 +1,8 @@
 ﻿namespace ContextStudier.Core.Exceptions
 {
-    public class EntityWasNotStoredException : Exception
+    public class EntityNotFoundException : Exception
     {
-        public EntityWasNotStoredException()
+        public EntityNotFoundException()
             :base("Can not find entity in the database")
         {            
         }
