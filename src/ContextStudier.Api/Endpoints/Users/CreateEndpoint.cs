@@ -22,7 +22,7 @@ namespace ContextStudier.Api.Endpoints.Users
             _mapper = mapper;
         }
 
-        [HttpPost("api/user/create")]
+        [HttpPost("api/user")]
         [SwaggerOperation(Tags = new[] { "Users" })]
         public override async Task<ActionResult> HandleAsync(UserRegistrationModel userRegistration, 
             CancellationToken cancellationToken = default)

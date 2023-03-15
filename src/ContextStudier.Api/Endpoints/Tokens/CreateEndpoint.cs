@@ -20,7 +20,7 @@ namespace ContextStudier.Api.Endpoints.Tokens
             _jwtGenerator = jwtGenerator;
         }
 
-        [HttpPost("api/token/create")]
+        [HttpPost("api/token")]
         [SwaggerOperation(Tags = new[] { "Tokens" })]
         public override async Task<ActionResult<AuthenticatedUserModel>> HandleAsync(
             CredentialModel credential,

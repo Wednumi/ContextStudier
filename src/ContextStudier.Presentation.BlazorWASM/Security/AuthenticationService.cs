@@ -1,7 +1,6 @@
 ﻿using Blazored.LocalStorage;
 using ContextStudier.Api.Models.AccountModels;
 using ContextStudier.Presentation.Core.AccountModels;
-using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
 namespace ContextStudier.Presentation.BlazorWASM.Security
@@ -25,7 +24,7 @@ namespace ContextStudier.Presentation.BlazorWASM.Security
 
         public async Task<AuthenticationResultModel> LoginAsync(CredentialModel credentials)
         {
-            var authResult = await _client.PostAsJsonAsync("Token", credentials);
+            var authResult = await _client.PostAsJsonAsync("token", credentials);
 
             if (authResult.IsSuccessStatusCode is false)
             {

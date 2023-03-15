@@ -30,7 +30,7 @@
             ContractResolver = new PrivateSetterContractResolver()
         };
 
-        _folders = await _client.GetFromJsonAsync<HashSet<FolderModel>>("Folder/all", settings)
+        _folders = await _client.GetFromJsonAsync<HashSet<FolderModel>>("folder/all", settings)
             ?? new HashSet<FolderModel>();            
     }
 

@@ -57,7 +57,7 @@
 
     private async Task UpdateAsync()
     {
-        var result = await _client.PostAsJsonAsync<FolderModel>("Folder", Folder);
+        var result = await _client.PostAsJsonAsync<FolderModel>("folder", Folder);
         _success = result.IsSuccessStatusCode;
         await UpdateModelAsync(result.Content);
 

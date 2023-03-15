@@ -25,7 +25,7 @@ namespace ContextStudier.Api.Endpoints.Folders
         }
 
         [Authorize]
-        [HttpPost("api/folder/update")]
+        [HttpPost("api/folder")]
         [SwaggerOperation(Tags = new[] { "Folders" })]
         public override async Task<ActionResult<FolderModel>> HandleAsync(FolderModel folderModel,
             CancellationToken cancellationToken = default)

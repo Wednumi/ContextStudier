@@ -35,7 +35,7 @@
     private async Task Register()
     {
         _postResult = "...loading";
-        var response = await _client.PostAsJsonAsync<UserRegistrationModel>("User", _registrationModel);
+        var response = await _client.PostAsJsonAsync<UserRegistrationModel>("user", _registrationModel);
         _postResult = response.IsSuccessStatusCode
             ? "Successfully registered"
             : await response.Content.ReadAsStringAsync();
