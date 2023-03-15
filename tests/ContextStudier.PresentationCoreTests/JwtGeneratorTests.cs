@@ -1,44 +1,68 @@
-﻿using ContextStudier.Api.Services;
+﻿using ContextStudier.Api.Endpoints.Tokens;
 using ContextStudier.Core.Entitites;
 using ContextStudier.Core.Interfaces.Security;
 using Microsoft.AspNetCore.Identity;
 using Moq;
-using System.Text;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace ContextStudier.ApiUnitTests
 {
     public class JwtGeneratorTests
     {
-        [Fact]
-        public void Does_generate_any_token()
+        private readonly Mock<ISecurityKeySource> _keySourceMock;
+
+        private readonly Mock<UserManager<User>> _userManagerMock;
+
+        private readonly JwtGenerator _sut;
+
+        public JwtGeneratorTests()
         {
-            var keySourceMock = new Mock<ISecurityKeySource>();
-            keySourceMock.Setup(s => s.GetKeyBytes())
+            _keySourceMock = new Mock<ISecurityKeySource>();
+            _keySourceMock.Setup(s => s.GetKeyBytes())
                 .Returns(new byte[32]);
-            var user = new User { UserName = "name" };
-            var sut = new JwtGenerator( keySourceMock.Object);
-            var roles = new List<string>();
 
-            var token = sut.Generate(user, roles);
-
-            Assert.NotNull(token);
+            var storeMock = new Mock<IUserStore<User>>();
+            _userManagerMock = new Mock<UserManager<User>>(storeMock.Object, null, 
+                null, null, null, null, null, null, null);
+            _sut = new JwtGenerator(_keySourceMock.Object, _userManagerMock.Object);
         }
 
         [Fact]
-        public void Token_includes_roles()
+        public void GenerateAsync_IncludeClaims()
         {
-            var keySourceMock = new Mock<ISecurityKeySource>();
-            keySourceMock.Setup(s => s.GetKeyBytes())
-                .Returns(Encoding.UTF8.GetBytes("test-test-test-test"));
+            //Arrange
             var user = new User { UserName = "name" };
-            var sut = new JwtGenerator(keySourceMock.Object);
-            var emptyRoles = new List<string>();
-            var filledRoles = new List<string>() { "role1" };
+            _userManagerMock.Setup(m => m.GetRolesAsync(user)).ReturnsAsync(new List<string>());
 
-            var tokenWithoutRoles = sut.Generate(user, emptyRoles);
-            var tokenWithRoles = sut.Generate(user, filledRoles);
+            //Act
+            var result = _sut.GenerateAsync(user).Result;
 
-            Assert.NotEqual(tokenWithoutRoles, tokenWithRoles);
+            //Assert
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var userName = tokenHandler.ReadJwtToken(result.AccessToken).Claims
+                .FirstOrDefault(c => c.Type == ClaimTypes.Name).Value;
+
+            Assert.Equal(user.UserName, userName);
+        }
+
+        [Fact]
+        public void Generate_IncludesRoles()
+        {
+            //Arrange
+            var user = new User { UserName = "name" };
+            var roles = new List<string>() { "role1", "role2" };
+            _userManagerMock.Setup(m => m.GetRolesAsync(user)).ReturnsAsync(roles);
+
+            //Act
+            var result = _sut.GenerateAsync(user).Result;
+
+            //Assert
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var storedRoles = tokenHandler.ReadJwtToken(result.AccessToken).Claims
+                .Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToList();
+
+            Assert.Equal(roles, storedRoles);
         }
     }
 }

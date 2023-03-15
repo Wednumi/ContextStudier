@@ -1,5 +1,4 @@
-﻿using ContextStudier.Api.Models.MapperConfig;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ContextStudier.Api.Models.AccountModels
 {
