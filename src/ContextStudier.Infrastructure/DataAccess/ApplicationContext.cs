@@ -1,11 +1,10 @@
 ﻿using ContextStudier.Core.Entitites;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace ContextStudier.Infrastructure.DataAccess
 {
-    internal class ApplicationContext : IdentityDbContext<User>
+    public class ApplicationContext : IdentityDbContext<User>
     {
         internal DbSet<User> Users { get; set; }
 

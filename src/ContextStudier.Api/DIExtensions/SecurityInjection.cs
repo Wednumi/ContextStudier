@@ -1,7 +1,6 @@
 ﻿using ContextStudier.Core.Interfaces.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 namespace ContextStudier.Api.DIExtensions
 {

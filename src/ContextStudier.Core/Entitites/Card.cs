@@ -10,6 +10,8 @@
 
         public DateTime Date { get; private set; }
 
-        public Folder Folder { get; private set; }
+        public int FolderId { get; set; }
+
+        public Folder? Folder { get; private set; }
     }
 }

@@ -1,0 +1,13 @@
+﻿@page "/folder/{FolderId:int}"
+
+@inject HttpClient _client
+
+@code {
+    [Parameter]
+    public int FolderId { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        
+    }
+}

@@ -43,6 +43,7 @@ namespace ContextStudier.Infrastructure
                 options.User.RequireUniqueEmail = true;
             })
                 .AddEntityFrameworkStores<ApplicationContext>();
+
             services.AddSingleton<ISecurityKeySource, ConfigSecurityKeySource>();
         }
     }

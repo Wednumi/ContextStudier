@@ -2,10 +2,6 @@
 using ContextStudier.Infrastructure;
 using ContextStudier.Core;
 using Microsoft.Extensions.Configuration;
-using Moq;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Identity;
-using ContextStudier.Core.Entitites;
 using ContextStudier.Infrastructure.DataAccess;
 
 namespace ContextStudier.IntegrationTests

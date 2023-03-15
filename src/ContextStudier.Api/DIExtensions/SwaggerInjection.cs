@@ -41,6 +41,7 @@ namespace ContextStudier.Api.DIExtensions
                             new string[]{}
                         }
                     });
+                setup.EnableAnnotations();
             });
         }
     }

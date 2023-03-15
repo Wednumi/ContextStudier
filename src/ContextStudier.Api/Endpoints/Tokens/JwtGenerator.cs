@@ -1,24 +1,29 @@
 ﻿using ContextStudier.Core.Entitites;
 using ContextStudier.Core.Interfaces.Security;
 using ContextStudier.Presentation.Core.AccountModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace ContextStudier.Api.Services
+namespace ContextStudier.Api.Endpoints.Tokens
 {
     public class JwtGenerator
     {
         private readonly ISecurityKeySource _keySource;
 
-        public JwtGenerator(ISecurityKeySource keySource)
+        private readonly UserManager<User> _userManager;
+
+        public JwtGenerator(ISecurityKeySource keySource, UserManager<User> userManager)
         {
             _keySource = keySource;
+            _userManager = userManager;
         }
 
-        public AuthenticatedUserModel Generate(User user, IList<string> roleNames)
+        public async Task<AuthenticatedUserModel> GenerateAsync(User user)
         {
             var claims = GetUserClaims(user);
+            var roleNames = await _userManager.GetRolesAsync(user);
             AddRoleClaims(claims, roleNames);
 
             var header = new JwtHeader(
@@ -27,11 +32,13 @@ namespace ContextStudier.Api.Services
                     SecurityAlgorithms.HmacSha256));
 
             var token = new JwtSecurityToken(header, new JwtPayload(claims));
+
             var output = new AuthenticatedUserModel
             {
                 AccessToken = new JwtSecurityTokenHandler().WriteToken(token),
                 UserName = user.UserName,
             };
+
             return output;
         }
 

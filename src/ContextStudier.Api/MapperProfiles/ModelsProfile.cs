@@ -11,6 +11,7 @@ namespace ContextStudier.Api.MapperProfiles
         {
             CreateMap<UserRegistrationModel, User>();
             CreateMap<FolderModel, Folder>();
+            CreateMap<Folder, FolderInfo>();
             CreateMap<Folder, FolderModel>()
                 .ForMember(dest => dest.CardsCount, opt => opt.MapFrom(src => src.Cards.Count));
         }
