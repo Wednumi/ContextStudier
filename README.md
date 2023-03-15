@@ -1,6 +1,4 @@
-Welcome to the Language Learning Flash Cards Application! The current state of the application is in the "folder-editor" branch.
-
-This application serves as a base for future development of a language learning flash cards site that is focused on translating sequences and phrases instead of distinct words. This is a unique approach to language learning that allows for a more natural way of understanding the nuances of a language.
+Welcome to the Language Learning Flash Cards Application! This application serves as a language learning flashcards platform that is focused on translating sequences and phrases instead of distinct words. This is a unique approach to language learning that allows for a more natural way of understanding the nuances of a language.
 
 The application is designed using Clean (Onion) architecture, which is a software architecture pattern that separates the concerns of an application into layers that are isolated from each other. This makes it easy to modify and extend the application as needed.
 
