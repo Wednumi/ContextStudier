@@ -10,7 +10,7 @@ namespace ContextStudier.UnitTests.PresentationCore
             var parameters = new Dictionary<string, string>()
             {
                 { "key1", "value1" },
-                { "key2", "value2" }
+                { "key2", "value2" },
             };
             var uri = new Uri("/api/action/", UriKind.Relative);
             var expected = uri.ToString() + "?" + 
